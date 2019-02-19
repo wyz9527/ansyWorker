@@ -20,17 +20,27 @@ goworker+python+redis 实现一个异步任务处理
 ```
 
 ## 编译go程序
-`go build`
+```shell
+go build
+```
 
 ## awctls.py设置权限
-`chmod +x awctls.py`
+```shell
+chmod +x awctls.py
+```
 
 ## 启动
-`./awctls.py start`
+```shell
+./awctls.py start
+```
 
 ## 停止
-`./awctls.py stop`
+```shell
+./awctls.py stop
+```
 
 ## 重启
-`./awctls.py restart`
+```shell
+./awctls.py restart
+```
 
