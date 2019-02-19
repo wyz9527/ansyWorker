@@ -45,7 +45,7 @@ chmod +x awctls.py
 ```
 
 ## PHP测试
-···PHP
+```php
 <?php
     function testAnsyTask(){
         $mRedis = CacheRedisQueue::getInstance();
