@@ -1,0 +1,11 @@
+{
+  "uri" : "redis://localhost:6379/",
+  "queues": "900sui:ansyTaskQueue",
+  "connections" : 10,
+  "concurrency" : 5,
+  "namespace"   : "kcResque:",
+  "interval"    : 3,
+  "pid"         : "/var/log/ansyTask/dange/pid/ansyTask.pid",
+  "log"         : "/var/log/ansyTask/dange/logs/dange.log"
+}
+
