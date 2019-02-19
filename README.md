@@ -16,7 +16,8 @@ goworker+python+redis 实现一个异步任务处理
   "interval"    : 3, //时间间隔 单位 秒
   "pid"         : "/var/log/ansyTask/dange/pid/ansyTask.pid", //pid存放文件
   "log"         : "/var/log/ansyTask/dange/logs/dange.log" //日志文件
-}```
+}
+```
 
 ## 编译go程序
 `go build`
