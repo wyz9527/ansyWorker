@@ -44,3 +44,38 @@ chmod +x awctls.py
 ./awctls.py restart
 ```
 
+## PHP测试
+···PHP
+<?php
+    function testAnsyTask(){
+        $mRedis = CacheRedisQueue::getInstance();
+        //shell脚本
+        $data = [
+            'class' => 'AnsyTask',
+            'args'  => [
+                [
+                    'type'  => 'shell',
+                    'dir'   => '/data/www/shell/',
+                    'mainFile' => 'test.sh'
+                ]
+            ]
+        ];
+
+        //php 脚本
+        $data = [
+            'class' => 'AnsyTask',
+            'args'  => [
+                [
+                    'type'      => 'php',
+                    'dir'       => '/lamp/kctz/jkd11.9/',
+                    'mainFile'  => 'index.php',
+                    'phpbin'    => '/usr/local/php2/bin/php',
+                    'action'    => '/Batch-Once-Test',
+                    'cmdArgs'   => 'orderId=1&goodsId=2'
+                ]
+            ]
+        ];
+
+        $mRedis->rPush( 'kcResque:queue:900sui:ansyTaskQueue', json_encode( $data ) );
+    }
+    ```
