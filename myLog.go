@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"io"
 	"log"
 	"os"
 	"time"
@@ -26,7 +25,7 @@ func infoLog( msg ...interface{} ){
 		log.Fatalln("打开日志文件失败：",err)
 	}
 
-	myInfo := log.New(io.MultiWriter(os.Stdout,errFile),"Info:",log.Ldate | log.Ltime | log.Lshortfile)
+	myInfo := log.New(errFile,"Info:\n",log.Ldate | log.Ltime | log.Lshortfile)
 	myInfo.Println( msg... )
 }
 
@@ -41,7 +40,7 @@ func errorLog( msg ...interface{} ){
 		log.Fatalln("打开日志文件失败：",err)
 	}
 
-	myError := log.New(io.MultiWriter(os.Stderr,errFile),"Error:",log.Ldate | log.Ltime | log.Lshortfile)
+	myError := log.New(errFile,"Error:",log.Ldate | log.Ltime | log.Lshortfile)
 	myError.Println( msg... )
 
 }
@@ -57,6 +56,6 @@ func warnLog(msg ...interface{})  {
 		log.Fatalln("打开日志文件失败：",err)
 	}
 
-	myWarn := log.New(io.MultiWriter(os.Stderr,errFile),"Error:",log.Ldate | log.Ltime | log.Lshortfile)
+	myWarn := log.New(errFile,"Warin:",log.Ldate | log.Ltime | log.Lshortfile)
 	myWarn.Println( msg... )
 }
