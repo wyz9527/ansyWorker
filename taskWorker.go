@@ -50,7 +50,8 @@ func ansyTaskWorker(queue string, args ...interface{}) error {
 	var err error
 	var cmd  *exec.Cmd
 	//打印日志
-	myInfo.Printf("From Redis Key : %s; Args: %v\n", queue, args[0])
+	go infoLog(fmt.Sprintf( "From Redis Key : %s; Args: %v\n", queue, args[0] ))
+	//myInfo.Printf("From Redis Key : %s; Args: %v\n", queue, args[0])
 	//解析数据
 	params := make(map[string]string)
 	data, _ := json.Marshal(args[0])
@@ -93,17 +94,21 @@ func ansyTaskWorker(queue string, args ...interface{}) error {
 
 	err = cmd.Wait()
 	if err != nil {
-		myError.Println( err )
+		go errorLog( err )
+		//myError.Println( err )
 	}
 
 	if errStderr != nil || errStdout != nil {
-		myError.Println(errStdout, errStderr)
+		go errorLog(errStdout, errStderr)
+		//myError.Println(errStdout, errStderr)
 	}
 
 	outStr, errStr := string(stdout), string(stderr)
-	myInfo.Printf("\nout:\n%s\n", outStr)
+	//myInfo.Printf("\nout:\n%s\n", outStr)
+	infoLog( fmt.Sprintf( "\nout:\n%s\n", outStr ) )
 	if errStr != "" {
-		myError.Printf("\nerr:\n%s\n", errStr)
+		errorLog( fmt.Sprintf( "\nerr:\n%s\n", errStr ))
+		//myError.Printf("\nerr:\n%s\n", errStr)
 	}
 	return nil
 }

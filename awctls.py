@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 
-import json,os,sys,signal
+import json,os,sys,signal, time
 
 argLen = len(sys.argv)
 
@@ -70,6 +70,7 @@ elif sys.argv[1] == 'stop':
 	ansyStop()
 elif sys.argv[1] == 'restart':
 	ansyStop()
+	time.sleep(2)
 	ansyStart()
 
 

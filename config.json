@@ -5,7 +5,7 @@
   "concurrency" : 5,
   "namespace"   : "kcResque:",
   "interval"    : 3,
-  "pid"         : "/var/log/ansyTask/dange/pid/ansyTask.pid",
-  "log"         : "/var/log/ansyTask/dange/logs/dange.log"
+  "pid"         : "/var/log/ansyTask/kxb/pid/ansyTask.pid",
+  "log"         : "/var/log/ansyTask/kxb/logs/kxb.log"
 }
 

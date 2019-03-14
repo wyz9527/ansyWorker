@@ -17,8 +17,6 @@ func main(){
 	if !flag.Parsed() {
 		flag.Parse()
 	}
-	//初始化日志信息
-	setMylog()
 	//获取当前进程的pid,将pid保存到pidFile
 	pid := os.Getpid()
 	err := WritePid( pidFile, pid )
