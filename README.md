@@ -31,17 +31,17 @@ chmod +x awctls.py
 
 ## 启动
 ```shell
-./awctls.py start
+./awctls.py start -c /path/config.json
 ```
 
 ## 停止
 ```shell
-./awctls.py stop
+./awctls.py stop -c /path/config.json
 ```
 
 ## 重启
 ```shell
-./awctls.py restart
+./awctls.py restart -c /path/config.json
 ```
 
 ## PHP测试
@@ -57,7 +57,8 @@ chmod +x awctls.py
                 [
                     'type'  => 'shell',
                     'dir'   => '/data/www/shell/',
-                    'mainFile' => 'test.sh'
+                    'mainFile' => 'test.sh',
+					'runAfterTime' => '5' //延迟执行时间 单位秒
                 ]
             ]
         ];
@@ -73,7 +74,8 @@ chmod +x awctls.py
                     'mainFile'  => 'index.php',
                     'phpbin'    => '/usr/local/php2/bin/php',
                     'action'    => '/Batch-Once-Test',
-                    'cmdArgs'   => 'orderId=1&goodsId=2'
+                    'cmdArgs'   => 'orderId=1&goodsId=2',
+					'runAfterTime' => '5' //延迟执行时间 单位秒
                 ]
             ]
         ];
