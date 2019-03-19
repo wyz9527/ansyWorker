@@ -58,7 +58,7 @@ chmod +x awctls.py
                     'type'  => 'shell',
                     'dir'   => '/data/www/shell/',
                     'mainFile' => 'test.sh',
-					'runAfterTime' => '5' //延迟执行时间 单位秒
+		    'runAfterTime' => '5' //延迟执行时间 单位秒
                 ]
             ]
         ];
@@ -75,7 +75,7 @@ chmod +x awctls.py
                     'phpbin'    => '/usr/local/php2/bin/php',
                     'action'    => '/Batch-Once-Test',
                     'cmdArgs'   => 'orderId=1&goodsId=2',
-					'runAfterTime' => '5' //延迟执行时间 单位秒
+		    'runAfterTime' => '5' //延迟执行时间 单位秒
                 ]
             ]
         ];
