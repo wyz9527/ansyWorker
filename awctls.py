@@ -1,13 +1,27 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 
-import json,os,sys,signal, time
+import json,os,sys,signal,time,getopt
+
+try:
+	opts, args = getopt.gnu_getopt(sys.argv[1:],"hc:", ["help","config="])
+except:
+	print 'Error: awctls.py -c <config> '
+	sys.exit(0)
 
 argLen = len(sys.argv)
-
 if argLen < 2:
 	print "arg start|restart|stop need one"
 	sys.exit(0) #退出程序
+
+dir 		=  os.getcwd()
+configFile 	= dir + "/config.json"
+for opt, arg in opts:
+	if opt in ("-h", "--help"):
+		print 'awctls.py start|stop|restart -c <config>'
+		sys.exit(0)
+	elif opt in ("-c", "--config"):
+		configFile = arg
 
 #检查进程是否存在
 def check_pid(pid):
@@ -56,9 +70,8 @@ def ansyStop():
 
 #读取配置文件
 def readConfig():
-	dir =  os.getcwd()
-	filePath = dir + "/config.json"
-	with open(filePath) as f:
+	print configFile
+	with open(configFile) as f:
 		awConf = json.loads( f.read() )
 	return awConf
 

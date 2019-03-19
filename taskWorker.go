@@ -8,6 +8,8 @@ import (
 	"io/ioutil"
 	"os"
 	"os/exec"
+	"strconv"
+	"time"
 )
 
 //在初始化里面进行业务注册
@@ -50,8 +52,7 @@ func ansyTaskWorker(queue string, args ...interface{}) error {
 	var err error
 	var cmd  *exec.Cmd
 	//打印日志
-	go infoLog(fmt.Sprintf( "From Redis Key : %s; Args: %v\n", queue, args[0] ))
-	//myInfo.Printf("From Redis Key : %s; Args: %v\n", queue, args[0])
+	infoLog(fmt.Sprintf( "From Redis Key : %s; Args: %v\n", queue, args[0] ))
 	//解析数据
 	params := make(map[string]string)
 	data, _ := json.Marshal(args[0])
@@ -66,10 +67,28 @@ func ansyTaskWorker(queue string, args ...interface{}) error {
 	if _, ok := params["cmdArgs"]; ok{
 		cmdArgs = params["cmdArgs"] //参数
 	}
+	//--延迟定时器--//
+	runAfterTime := "0" //延迟时间 单位秒
+	if _, ok := params["runAfterTime"]; ok{
+		runAfterTime = params["runAfterTime"] //延迟执行时间
+	}
+	if runAfterTime != "0" {
+		afterTime, err := strconv.Atoi(runAfterTime)
+		if err != nil{
+			errorLog("时间错误")
+			return  err
+		}
+		t := time.NewTimer( time.Second * time.Duration( afterTime) )
+		<-t.C
+		t.Stop()
+	}
+	//--延迟定时器 end--//
 	switch taskType {
 		case "php":
+			//fmt.Println("Run at PHP")
 			phpbin := params["phpbin"] //php命令文件
 			action := params["action"] //控制器-方法-动作
+			//fmt.Println(phpbin,mainFile, action,cmdArgs)
 			cmd = exec.Command( phpbin, mainFile, action, cmdArgs )
 		case "shell":
 			//执行shell脚本
@@ -94,21 +113,17 @@ func ansyTaskWorker(queue string, args ...interface{}) error {
 
 	err = cmd.Wait()
 	if err != nil {
-		go errorLog( err )
-		//myError.Println( err )
+		errorLog( err )
 	}
 
 	if errStderr != nil || errStdout != nil {
-		go errorLog(errStdout, errStderr)
-		//myError.Println(errStdout, errStderr)
+		errorLog(errStdout, errStderr)
 	}
 
 	outStr, errStr := string(stdout), string(stderr)
-	//myInfo.Printf("\nout:\n%s\n", outStr)
 	infoLog( fmt.Sprintf( "\nout:\n%s\n", outStr ) )
 	if errStr != "" {
 		errorLog( fmt.Sprintf( "\nerr:\n%s\n", errStr ))
-		//myError.Printf("\nerr:\n%s\n", errStr)
 	}
 	return nil
 }

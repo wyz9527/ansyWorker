@@ -1,6 +1,6 @@
 {
   "uri" : "redis://localhost:6379/",
-  "queues": "900sui:ansyTaskQueue",
+  "queues": "msf:ansyTaskQueue",
   "connections" : 10,
   "concurrency" : 5,
   "namespace"   : "kcResque:",
