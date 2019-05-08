@@ -1,8 +1,9 @@
 {
   "uri" : "redis://localhost:6379/",
   "queues": "msf:ansyTaskQueue",
-  "connections" : 10,
-  "concurrency" : 5,
+  "connections" : 5,
+  "concurrency" : 2,
+  "maxAfterChanNum": 12,
   "namespace"   : "kcResque:",
   "interval"    : 3,
   "pid"         : "/var/log/ansyTask/kxb/pid/ansyTask.pid",

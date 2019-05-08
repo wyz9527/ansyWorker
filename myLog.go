@@ -15,11 +15,17 @@ func init()  {
 }
 
 //记录信息日志
-func infoLog( msg ...interface{} ){
+func infoLog( myLogFile string, msg ...interface{} ){
+
 	t := time.Now()
 	y,m,d := t.Date()
 	ymd := fmt.Sprintf("%d%d%d", y,m,d)
-	errFile,err:=os.OpenFile( logfile+"."+ymd, os.O_CREATE|os.O_WRONLY|os.O_APPEND,0666)
+
+	realLogFile := logfile
+	if len(myLogFile) > 0 {
+		realLogFile = myLogFile
+	}
+	errFile,err:=os.OpenFile( realLogFile+"."+ymd, os.O_CREATE|os.O_WRONLY|os.O_APPEND,0666)
 	defer errFile.Close()
 	if err!=nil{
 		log.Fatalln("打开日志文件失败：",err)
@@ -30,11 +36,16 @@ func infoLog( msg ...interface{} ){
 }
 
 //记录错误日志
-func errorLog( msg ...interface{} ){
+func errorLog( myLogFile string, msg ...interface{} ){
 	t := time.Now()
 	y,m,d := t.Date()
 	ymd := fmt.Sprintf("%d%d%d", y,m,d)
-	errFile,err:=os.OpenFile( logfile+"."+ymd, os.O_CREATE|os.O_WRONLY|os.O_APPEND,0666)
+
+	realLogFile := logfile
+	if len(myLogFile) > 0 {
+		realLogFile = myLogFile
+	}
+	errFile,err:=os.OpenFile( realLogFile+"."+ymd, os.O_CREATE|os.O_WRONLY|os.O_APPEND,0666)
 	defer errFile.Close()
 	if err!=nil{
 		log.Fatalln("打开日志文件失败：",err)
@@ -46,11 +57,15 @@ func errorLog( msg ...interface{} ){
 }
 
 //记录警告日志
-func warnLog(msg ...interface{})  {
+func warnLog( myLogFile string, msg ...interface{})  {
 	t := time.Now()
 	y,m,d := t.Date()
 	ymd := fmt.Sprintf("%d%d%d", y,m,d)
-	errFile,err:=os.OpenFile( logfile+"."+ymd, os.O_CREATE|os.O_WRONLY|os.O_APPEND,0666)
+	realLogFile := logfile
+	if len(myLogFile) > 0 {
+		realLogFile = myLogFile
+	}
+	errFile,err:=os.OpenFile( realLogFile+"."+ymd, os.O_CREATE|os.O_WRONLY|os.O_APPEND,0666)
 	defer errFile.Close()
 	if err!=nil{
 		log.Fatalln("打开日志文件失败：",err)

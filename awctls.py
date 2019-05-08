@@ -45,7 +45,7 @@ def ansyStart():
 			if check_pid( int(pid) ):
 				print pid + " server has runing; continued"
 				return True
-	cmd = u'%s/ansyTask -queues=%s -uri=%s -connections=%s -concurrency=%s -namespace=%s -interval=%s -use-number=true -exit-on-complete=false -pid=%s -log=%s & '%(dir,awConf['queues'],awConf['uri'],awConf['connections'],awConf['concurrency'],awConf['namespace'],awConf['interval'],awConf['pid'], awConf['log'])
+	cmd = u'%s/ansyTask -queues=%s -uri=%s -connections=%s -concurrency=%s -maxAfterChanNum=%s -namespace=%s -interval=%s -use-number=true -exit-on-complete=false -pid=%s -log=%s & '%(dir,awConf['queues'],awConf['uri'],awConf['connections'],awConf['concurrency'],awConf['maxAfterChanNum'],awConf['namespace'],awConf['interval'],awConf['pid'], awConf['log'])
 	print "Run :" + cmd
 	print  os.system(cmd)
 
