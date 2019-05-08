@@ -12,6 +12,7 @@ goworker+python+redis 实现一个异步任务处理
   "queues": "900sui:ansyTaskQueue", //redis队列名称
   "connections" : 10, //redis最大连接数
   "concurrency" : 5, //任务并行数
+  "maxAfterChanNum": 10,//定时任务缓冲通道长度
   "namespace"   : "kcResque:", //redis队列命名空间
   "interval"    : 3, //时间间隔 单位 秒
   "pid"         : "/var/log/ansyTask/dange/pid/ansyTask.pid", //pid存放文件
